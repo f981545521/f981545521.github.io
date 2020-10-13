@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>spring的事务处理 | 江心秋月</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="spring的事务处理spring 官方文档https://docs.spring.io/spring-boot/docs/1.5.9.RELEASE/reference/htmlsingle/https://docs.spring.io/spring/docs/4.3.13.RELEASE/spring-framework-reference/htmlsingle/ 什么是事务（Transact">
+<meta name="keywords" content="spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring的事务处理">
+<meta property="og:url" content="http://yoursite.com/2018/09/03/springTransaction/index.html">
+<meta property="og:site_name" content="江心秋月">
+<meta property="og:description" content="spring的事务处理spring 官方文档https://docs.spring.io/spring-boot/docs/1.5.9.RELEASE/reference/htmlsingle/https://docs.spring.io/spring/docs/4.3.13.RELEASE/spring-framework-reference/htmlsingle/ 什么是事务（Transact">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:updated_time" content="2020-10-13T02:20:28.320Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="spring的事务处理">
+<meta name="twitter:description" content="spring的事务处理spring 官方文档https://docs.spring.io/spring-boot/docs/1.5.9.RELEASE/reference/htmlsingle/https://docs.spring.io/spring/docs/4.3.13.RELEASE/spring-framework-reference/htmlsingle/ 什么是事务（Transact">
+  
+    <link rel="alternate" href="/atom.xml" title="江心秋月" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">江心秋月</span>
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                推荐
+            </a>
+            
+            <a class="nav-item" href="/about">
+                关于
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                推荐
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                关于
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>spring的事务处理</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="http://mvimg1.meitudata.com/5744548da272f9396.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> 江心秋月</span>
+                <span class="post-date sub-title">at: 2018-09-03</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/spring/">spring</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <h3 id="spring的事务处理"><a href="#spring的事务处理" class="headerlink" title="spring的事务处理"></a>spring的事务处理</h3><h4 id="spring-官方文档"><a href="#spring-官方文档" class="headerlink" title="spring 官方文档"></a>spring 官方文档</h4><p><a href="https://docs.spring.io/spring-boot/docs/1.5.9.RELEASE/reference/htmlsingle/" target="_blank" rel="noopener">https://docs.spring.io/spring-boot/docs/1.5.9.RELEASE/reference/htmlsingle/</a><br><a href="https://docs.spring.io/spring/docs/4.3.13.RELEASE/spring-framework-reference/htmlsingle/" target="_blank" rel="noopener">https://docs.spring.io/spring/docs/4.3.13.RELEASE/spring-framework-reference/htmlsingle/</a></p>
+<h4 id="什么是事务（Transaction）"><a href="#什么是事务（Transaction）" class="headerlink" title="什么是事务（Transaction）"></a>什么是事务（Transaction）</h4><p>事务，就是一组操作数据库的动作集合。事务是现代数据库理论中的核心概念之一。<br>如果一组处理步骤或者全部发生或者一步也不执行，我们称该组处理步骤为一个事务。<br>当所有的步骤像一个操作一样被完整地执行，我们称该事务被提交。<br>由于其中的一部分或多步执行失败，导致没有步骤被提交，则事务必须回滚到最初的系统状态。</p>
+<h4 id="事务特性（4种）"><a href="#事务特性（4种）" class="headerlink" title="事务特性（4种）:"></a>事务特性（4种）:</h4><ul>
+<li>原子性 （atomicity）:强调事务的不可分割. </li>
+<li>一致性 （consistency）:事务的执行的前后数据的完整性保持一致. </li>
+<li>隔离性 （isolation）:一个事务执行的过程中,不应该受到其他事务的干扰 </li>
+<li>持久性（durability） :事务一旦结束,数据就持久到数据库</li>
+</ul>
+<h4 id="spring七个事务传播属性："><a href="#spring七个事务传播属性：" class="headerlink" title="spring七个事务传播属性："></a>spring七个事务传播属性：</h4><ol>
+<li><p>PROPAGATION_REQUIRED – 支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。</p>
+</li>
+<li><p>PROPAGATION_SUPPORTS – 支持当前事务，如果当前没有事务，就以非事务方式执行。</p>
+</li>
+<li><p>PROPAGATION_MANDATORY – 支持当前事务，如果当前没有事务，就抛出异常。</p>
+</li>
+<li><p>PROPAGATION_REQUIRES_NEW – 新建事务，如果当前存在事务，把当前事务挂起。</p>
+</li>
+<li><p>PROPAGATION_NOT_SUPPORTED – 以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。</p>
+</li>
+<li><p>PROPAGATION_NEVER – 以非事务方式执行，如果当前存在事务，则抛出异常。</p>
+</li>
+<li><p>PROPAGATION_NESTED – 如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则进行与PROPAGATION_REQUIRED类似的操作。</p>
+</li>
+</ol>
+<blockquote>
+<p>常用的两个事务传播属性是1和4，即PROPAGATION_REQUIRED，PROPAGATION_REQUIRES_NEW</p>
+</blockquote>
+<h4 id="五个隔离级别："><a href="#五个隔离级别：" class="headerlink" title="五个隔离级别："></a>五个隔离级别：</h4><ul>
+<li>ISOLATION_DEFAULT - 这是一个PlatfromTransactionManager默认的隔离级别，使用数据库默认的事务隔离级别.</li>
+</ul>
+<ul>
+<li><p>ISOLATION_READ_UNCOMMITTED - 这是事务最低的隔离级别，它充许别外一个事务可以看到这个事务未提交的数据。这种隔离级别会产生脏读，不可重复读和幻像读。</p>
+</li>
+<li><p>ISOLATION_READ_COMMITTED - 保证一个事务修改的数据提交后才能被另外一个事务读取。另外一个事务不能读取该事务未提交的数据。这种事务隔离级别可以避免脏读出现，但是可能会出现不可重复读和幻像读。</p>
+</li>
+<li><p>ISOLATION_REPEATABLE_READ - 这种事务隔离级别可以防止脏读，不可重复读。但是可能出现幻像读。它除了保证一个事务不能读取另一个事务未提交的数据外，还保证了避免下面的情况产生(不可重复读)。</p>
+</li>
+<li><p>ISOLATION_SERIALIZABLE - 这是花费最高代价但是最可靠的事务隔离级别。事务被处理为顺序执行。除了防止脏读，不可重复读外，还避免了幻像读。</p>
+</li>
+</ul>
+<p>关键词： </p>
+<ol>
+<li>幻读：事务1读取记录时事务2增加了记录并提交，事务1再次读取时可以看到事务2新增的记录； </li>
+<li>不可重复读取：事务1读取记录时，事务2更新了记录并提交，事务1再次读取时可以看到事务2修改后的记录； </li>
+<li>脏读：事务1更新了记录，但没有提交，事务2读取了更新后的行，然后事务T1回滚，现在T2读取无效。</li>
+</ol>
+<p>脏读：指一个事务读取了一个未提交事务的数据</p>
+<p>不可重复读：在一个事务内读取表中的某一行数据,多次读取结果不同.一个事务读取到了另一个事务提交后的数据.</p>
+<p>虚读(幻读)：在一个事务内读取了别的事务插入的数据，导致前后读取不一致(insert)</p>
+<h3 id="分布式事务的解决方案"><a href="#分布式事务的解决方案" class="headerlink" title="分布式事务的解决方案"></a>分布式事务的解决方案</h3><h4 id="BASE理论"><a href="#BASE理论" class="headerlink" title="BASE理论"></a>BASE理论</h4><ul>
+<li>Basically Available（基本可用） </li>
+<li>Soft state（软状态） </li>
+<li>Eventually consistent（最终一致性） <blockquote>
+<p>BASE理论是对CAP中的一致性和可用性进行一个权衡的结果，理论的核心思想就是：我们无法做到强一致，但每个应用都可以根据自身的业务特点，采用适当的方式来使系统达到最终一致性（Eventual consistency）。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="CAP（帽子理论）"><a href="#CAP（帽子理论）" class="headerlink" title="CAP（帽子理论）"></a>CAP（帽子理论）</h4><ul>
+<li>C：Consistency，一致性, 数据一致更新，所有数据变动都是同步的</li>
+<li>A：Availability，可用性, 好的响应性能，完全的可用性指的是在任何故障模型下，服务都会在有限的时间处理响应</li>
+<li>P：Partition tolerance，分区容错性，可靠性<blockquote>
+<p>帽子理论证明，任何分布式系统只可同时满足二点，没法三者兼顾。关系型数据库由于关系型数据库是单节点的，因此，不具有分区容错性，但是具有一致性和可用性，而分布式的服务化系统都需要满足分区容错性，那么我们必须在一致性和可用性中进行权衡，具体表现在服务化系统处理的异常请求在某一个时间段内可能是不完全的，但是经过自动的或者手工的补偿后，达到了最终的一致性。 </p>
+</blockquote>
+</li>
+</ul>
+<p><a href="https://github.com/codingapi/tx-lcn" target="_blank" rel="noopener">https://github.com/codingapi/tx-lcn</a></p>
+<p><a href="https://github.com/liuyangming/ByteTCC" target="_blank" rel="noopener">https://github.com/liuyangming/ByteTCC</a></p>
+<h4 id="两阶段提交（基于XA协议的两阶段提交方案）"><a href="#两阶段提交（基于XA协议的两阶段提交方案）" class="headerlink" title="两阶段提交（基于XA协议的两阶段提交方案）"></a>两阶段提交（基于XA协议的两阶段提交方案）</h4><ol>
+<li><p>第一阶段，所有事务参与者将执行结果的成功与否反馈给事务协调者，但是不提交。</p>
+</li>
+<li><p>第二阶段，事务协调者根据返回的结果，决定是全部提交，还是全部不提交。</p>
+</li>
+</ol>
+<blockquote>
+<p>可能子事务B在执行时，要访问还未提交事务的子事务A锁定的资源，导致锁等待，吞吐量会遇到瓶颈，导致性能不高。</p>
+</blockquote>
+<h4 id="TCC编程模式（Try-Confirm-Cancel）"><a href="#TCC编程模式（Try-Confirm-Cancel）" class="headerlink" title="TCC编程模式（Try/Confirm/Cancel）"></a>TCC编程模式（Try/Confirm/Cancel）</h4><p>所谓的TCC编程模式，也是<code>两阶段提交</code>的一个变种。TCC提供了一个编程框架，将整个业务逻辑分为三块：Try、Confirm和Cancel三个操作。</p>
+<p>总之，TCC就是通过代码人为实现了两阶段提交，不同的业务场景所写的代码都不一样，复杂度也不一样，因此，这种模式并不能很好地被复用。</p>
+<ol>
+<li>Try：尝试待执行的业务 </li>
+</ol>
+<p>这个过程并未执行业务，只是完成所有业务的一致性检查，并预留好执行所需的全部资源</p>
+<ol start="2">
+<li>Confirm：执行业务 </li>
+</ol>
+<p>这个过程真正开始执行业务，由于Try阶段已经完成了一致性检查，因此本过程直接执行，而不做任何检查。并且在执行的过程中，会使用到Try阶段预留的业务资源。</p>
+<ol start="3">
+<li>Cancel：取消执行的业务 </li>
+</ol>
+<p>若业务执行失败，则进入Cancel阶段，它会释放所有占用的业务资源，并回滚Confirm阶段执行的操作。</p>
+<h4 id="消息事务-最终一致性（基于可靠消息服务的分布式事务）"><a href="#消息事务-最终一致性（基于可靠消息服务的分布式事务）" class="headerlink" title="消息事务+最终一致性（基于可靠消息服务的分布式事务）"></a>消息事务+最终一致性（基于可靠消息服务的分布式事务）</h4><p>所谓的消息事务就是基于消息中间件的两阶段提交，本质上是对消息中间件的一种特殊利用，它是将本地事务和发消息放在了一个分布式事务里，保证要么本地操作成功成功并且对外发消息成功，要么两者都失败，开源的RocketMQ就支持这一特性.</p>
+<p>该方案采用最终一致的，牺牲了一致性，换来了性能的大幅度提升。存在造成数据不一致的风险</p>
+<blockquote>
+<p>将本地A操作和远程B操作的消息作为一个事物，一起提交，要么都成功，要么都失败，缺点是，对业务代码的侵入性太大，实现起来复杂。</p>
+</blockquote>
+<h4 id="全局事务（DTP模型）"><a href="#全局事务（DTP模型）" class="headerlink" title="全局事务（DTP模型）"></a>全局事务（DTP模型）</h4><p>全局事务基于DTP模型实现。DTP是由X/Open组织提出的一种分布式事务模型——X/Open Distributed Transaction Processing Reference Model。它规定了要实现分布式事务，需要三种角色：</p>
+<ul>
+<li>AP：Application 应用系统 <ul>
+<li>它就是我们开发的业务系统，在我们开发的过程中，可以使用资源管理器提供的事务接口来实现分布式事务。</li>
+</ul>
+</li>
+<li>TM：Transaction Manager 事务管理器<ul>
+<li>分布式事务的实现由事务管理器来完成，它会提供分布式事务的操作接口供我们的业务系统调用。这些接口称为TX接口。</li>
+<li>事务管理器还管理着所有的资源管理器，通过它们提供的XA接口来同一调度这些资源管理器，以实现分布式事务。</li>
+<li>DTP只是一套实现分布式事务的规范，并没有定义具体如何实现分布式事务，TM可以采用2PC、3PC、Paxos等协议实现分布式事务。</li>
+</ul>
+</li>
+<li>RM：Resource Manager 资源管理器<ul>
+<li>能够提供数据服务的对象都可以是资源管理器，比如：数据库、消息中间件、缓存等。大部分场景下，数据库即为分布式事务中的资源管理器。</li>
+<li>资源管理器能够提供单数据库的事务能力，它们通过XA接口，将本数据库的提交、回滚等能力提供给事务管理器调用，以帮助事务管理器实现分布式的事务管理。</li>
+<li>XA是DTP模型定义的接口，用于向事务管理器提供该资源管理器(该数据库)的提交、回滚等能力。</li>
+<li>DTP只是一套实现分布式事务的规范，RM具体的实现是由数据库厂商来完成的。</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <div class="post-reply">
+            
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTE4Ni81NzUz">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+            
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © You Fang 2020
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>

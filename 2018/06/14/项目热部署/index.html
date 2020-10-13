@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>SpringBoot实现热部署/视频处理 | 江心秋月</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="SpringBoot实现热部署1. 增加maven依赖12345&amp;lt;!-- SpringBoot自身提供了SpringBoot-DevTool来做热部署  --&amp;gt;&amp;lt;dependency&amp;gt;   &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;   &amp;lt;artifactId&amp;gt;spring-boot-devto">
+<meta name="keywords" content="spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot实现热部署&#x2F;视频处理">
+<meta property="og:url" content="http://yoursite.com/2018/06/14/项目热部署/index.html">
+<meta property="og:site_name" content="江心秋月">
+<meta property="og:description" content="SpringBoot实现热部署1. 增加maven依赖12345&amp;lt;!-- SpringBoot自身提供了SpringBoot-DevTool来做热部署  --&amp;gt;&amp;lt;dependency&amp;gt;   &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;   &amp;lt;artifactId&amp;gt;spring-boot-devto">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:updated_time" content="2020-10-13T02:20:28.320Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot实现热部署&#x2F;视频处理">
+<meta name="twitter:description" content="SpringBoot实现热部署1. 增加maven依赖12345&amp;lt;!-- SpringBoot自身提供了SpringBoot-DevTool来做热部署  --&amp;gt;&amp;lt;dependency&amp;gt;   &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;   &amp;lt;artifactId&amp;gt;spring-boot-devto">
+  
+    <link rel="alternate" href="/atom.xml" title="江心秋月" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">江心秋月</span>
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                推荐
+            </a>
+            
+            <a class="nav-item" href="/about">
+                关于
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                推荐
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                关于
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>SpringBoot实现热部署/视频处理</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="http://mvimg1.meitudata.com/5744548da272f9396.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> 江心秋月</span>
+                <span class="post-date sub-title">at: 2018-06-14</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/spring/">spring</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <h3 id="SpringBoot实现热部署"><a href="#SpringBoot实现热部署" class="headerlink" title="SpringBoot实现热部署"></a>SpringBoot实现热部署</h3><h4 id="1-增加maven依赖"><a href="#1-增加maven依赖" class="headerlink" title="1. 增加maven依赖"></a>1. 增加maven依赖</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- SpringBoot自身提供了SpringBoot-DevTool来做热部署  --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-但是注意这个只是在项目未启动时才会自动build"><a href="#2-但是注意这个只是在项目未启动时才会自动build" class="headerlink" title="2. 但是注意这个只是在项目未启动时才会自动build"></a>2. 但是注意这个只是在项目未启动时才会自动build</h4><p>“File”-&gt; “Settings”-&gt; “Build,Execution,Deplyment”-&gt; “Compiler”，选中打勾 “Build project automatically”。</p>
+<h4 id="3-快捷键-Ctrl-Shift-A-键入-Registry…"><a href="#3-快捷键-Ctrl-Shift-A-键入-Registry…" class="headerlink" title="3. 快捷键 Ctrl+Shift+A 键入 Registry…"></a>3. 快捷键 Ctrl+Shift+A 键入 Registry…</h4><p>“compiler.automake.allow.when.app.running”。选中打勾</p>
+<h3 id="SpringBoot的远程调试"><a href="#SpringBoot的远程调试" class="headerlink" title="SpringBoot的远程调试"></a>SpringBoot的远程调试</h3><p>[root@acyou youfang]# java -jar -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 iblog-data.jar</p>
+<h3 id="启动的时候总是报错，错误信息如下："><a href="#启动的时候总是报错，错误信息如下：" class="headerlink" title="启动的时候总是报错，错误信息如下："></a>启动的时候总是报错，错误信息如下：</h3><p>Cannot determine embedded database driver class for database type NONE</p>
+<p>在原先的项目中一切正常，换到这里就不行了。</p>
+<p>后来经过慢慢摸索，才发现项目发布的时候application.properties文件不能发布上去，在pom.xml文件中配置：</p>
+<pre><code>&lt;resource&gt;
+    &lt;directory&gt;src/main/resources&lt;/directory&gt;
+&lt;/resource&gt;
+</code></pre><p>这样才得以解决。</p>
+
+        </div>
+        <div class="post-reply">
+            
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTE4Ni81NzUz">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+            
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © You Fang 2020
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>

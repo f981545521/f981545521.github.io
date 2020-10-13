@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>Hexo建站指南 | 江心秋月</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Hexo建站安装前提安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：  Node.js Git  PS G:\hexo&amp;gt; npm install -g hexo-cliPS G:\hexo&amp;gt; hexo init D:\hexoPS G:\hexo&amp;gt; npm install  参考官方手册参考操作命令手册  主题https://github.com/">
+<meta name="keywords" content="hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo建站指南">
+<meta property="og:url" content="http://yoursite.com/2018/06/15/Hexo建站指南/index.html">
+<meta property="og:site_name" content="江心秋月">
+<meta property="og:description" content="Hexo建站安装前提安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：  Node.js Git  PS G:\hexo&amp;gt; npm install -g hexo-cliPS G:\hexo&amp;gt; hexo init D:\hexoPS G:\hexo&amp;gt; npm install  参考官方手册参考操作命令手册  主题https://github.com/">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:updated_time" content="2020-06-15T13:46:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo建站指南">
+<meta name="twitter:description" content="Hexo建站安装前提安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：  Node.js Git  PS G:\hexo&amp;gt; npm install -g hexo-cliPS G:\hexo&amp;gt; hexo init D:\hexoPS G:\hexo&amp;gt; npm install  参考官方手册参考操作命令手册  主题https://github.com/">
+  
+    <link rel="alternate" href="/atom.xml" title="江心秋月" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">江心秋月</span>
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                推荐
+            </a>
+            
+            <a class="nav-item" href="/about">
+                关于
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                推荐
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                关于
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>Hexo建站指南</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="http://mvimg1.meitudata.com/5744548da272f9396.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> 江心秋月</span>
+                <span class="post-date sub-title">at: 2018-06-15</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/hexo/">hexo</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <h3 id="Hexo建站"><a href="#Hexo建站" class="headerlink" title="Hexo建站"></a>Hexo建站</h3><h4 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h4><p>安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：</p>
+<ol>
+<li>Node.js</li>
+<li>Git</li>
+</ol>
+<p>PS G:\hexo&gt; npm install -g hexo-cli<br>PS G:\hexo&gt; hexo init D:\hexo<br>PS G:\hexo&gt; npm install</p>
+<blockquote>
+<p>参考<a href="https://hexo.io/zh-cn/docs/setup.html" target="_blank" rel="noopener">官方手册</a><br>参考<a href="https://hexo.io/zh-cn/docs/commands" target="_blank" rel="noopener">操作命令手册</a></p>
+</blockquote>
+<h4 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h4><p><a href="https://github.com/Haojen/hexo-theme-Claudia" target="_blank" rel="noopener">https://github.com/Haojen/hexo-theme-Claudia</a></p>
+<h4 id="Linux环境部署"><a href="#Linux环境部署" class="headerlink" title="Linux环境部署"></a>Linux环境部署</h4><ol>
+<li><p>安装nodejs、npm</p>
+<ul>
+<li><p>（弃用）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@acyou ~]# yum install nodejs</span><br><span class="line">[root@acyou ~]# yum install npm</span><br><span class="line">[root@acyou ~]# node -v</span><br><span class="line">[root@acyou ~]# npm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>（推荐）注意用户名路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@acyou nodejs]# wget http://cdn.npm.taobao.org/dist/node/v10.8.0/node-v10.8.0-linux-x64.tar.xz</span><br><span class="line">[root@acyou nodejs]# xz -d node-v10.8.0-linux-x64.tar.xz</span><br><span class="line">[root@acyou nodejs]# tar -xvf node-v10.8.0-linux-x64.tar </span><br><span class="line">[root@acyou hexo_blog]# ln -s /youfang/nodejs/node-v10.8.0-linux-x64/bin/node /usr/local/bin/</span><br><span class="line">[root@acyou hexo_blog]# ln -s /youfang/nodejs/node-v10.8.0-linux-x64/bin/npm /usr/local/bin/</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>如不生效请重启服务器</p>
+<ol start="2">
+<li>安装hexo<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@acyou ~]# npm config set strict-ssl false</span><br><span class="line">[root@acyou ~]# npm install -g hexo-cli</span><br><span class="line">[root@acyou ~]# npm install hexo-generator-search --save //搜索插件</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<ol start="3">
+<li>部署<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@acyou hexo_blog]# git clone https://github.com/f981545521/hexo_blog.git</span><br><span class="line">[root@acyou hexo_blog]# cd hexo_blog/</span><br><span class="line">[root@acyou hexo_blog]# git pull</span><br><span class="line">[root@acyou hexo_blog]# npm install</span><br><span class="line"></span><br><span class="line">[root@acyou hexo_blog]# hexo generate</span><br><span class="line">[root@acyou hexo_blog]# hexo server</span><br><span class="line">-- 在后台运行</span><br><span class="line">[root@acyou hexo_blog]# nohup hexo server &amp;</span><br><span class="line">   // npx hexo &lt;command&gt;</span><br><span class="line"></span><br><span class="line">  //链接至可执行文件：ln -s /root/apps/hexo_blog/node_modules/.bin/hexo /usr/local/bin/</span><br><span class="line">  //运行：nohup hexo server -p 80 &amp;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+        </div>
+        <div class="post-reply">
+            
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTE4Ni81NzUz">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+            
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © You Fang 2020
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>

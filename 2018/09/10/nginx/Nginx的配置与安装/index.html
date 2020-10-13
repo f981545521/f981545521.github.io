@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>Nginx的配置与安装 | 江心秋月</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="nginxnginx安装1. 下载进入http://nginx.org/en/download.html 下载nginx1.8.0版本（当前最新稳定版本）。2.    安装nginx安装环境 nginx是C语言开发，建议在linux上运行，本教程使用Centos6.5作为安装环境。  gcc    安装nginx需要先将官网下载的源码进行编译，编译依赖gcc环境，如果没有gcc环境，需要安装gcc">
+<meta name="keywords" content="nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx的配置与安装">
+<meta property="og:url" content="http://yoursite.com/2018/09/10/nginx/Nginx的配置与安装/index.html">
+<meta property="og:site_name" content="江心秋月">
+<meta property="og:description" content="nginxnginx安装1. 下载进入http://nginx.org/en/download.html 下载nginx1.8.0版本（当前最新稳定版本）。2.    安装nginx安装环境 nginx是C语言开发，建议在linux上运行，本教程使用Centos6.5作为安装环境。  gcc    安装nginx需要先将官网下载的源码进行编译，编译依赖gcc环境，如果没有gcc环境，需要安装gcc">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:updated_time" content="2020-10-13T02:20:28.320Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx的配置与安装">
+<meta name="twitter:description" content="nginxnginx安装1. 下载进入http://nginx.org/en/download.html 下载nginx1.8.0版本（当前最新稳定版本）。2.    安装nginx安装环境 nginx是C语言开发，建议在linux上运行，本教程使用Centos6.5作为安装环境。  gcc    安装nginx需要先将官网下载的源码进行编译，编译依赖gcc环境，如果没有gcc环境，需要安装gcc">
+  
+    <link rel="alternate" href="/atom.xml" title="江心秋月" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">江心秋月</span>
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                推荐
+            </a>
+            
+            <a class="nav-item" href="/about">
+                关于
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                推荐
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                关于
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>Nginx的配置与安装</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="http://mvimg1.meitudata.com/5744548da272f9396.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> 江心秋月</span>
+                <span class="post-date sub-title">at: 2018-09-10</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/nginx/">nginx</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <h2 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h2><h3 id="nginx安装"><a href="#nginx安装" class="headerlink" title="nginx安装"></a>nginx安装</h3><h4 id="1-下载进入http-nginx-org-en-download-html-下载nginx1-8-0版本（当前最新稳定版本）。"><a href="#1-下载进入http-nginx-org-en-download-html-下载nginx1-8-0版本（当前最新稳定版本）。" class="headerlink" title="1. 下载进入http://nginx.org/en/download.html 下载nginx1.8.0版本（当前最新稳定版本）。"></a>1. 下载进入<a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">http://nginx.org/en/download.html</a> 下载nginx1.8.0版本（当前最新稳定版本）。</h4><h3 id="2-安装"><a href="#2-安装" class="headerlink" title="2.    安装"></a>2.    安装</h3><h4 id="nginx安装环境"><a href="#nginx安装环境" class="headerlink" title="nginx安装环境"></a>nginx安装环境</h4><blockquote>
+<p>nginx是C语言开发，建议在linux上运行，本教程使用Centos6.5作为安装环境。</p>
+<ul>
+<li>gcc    安装nginx需要先将官网下载的源码进行编译，编译依赖gcc环境，<br>如果没有gcc环境，需要安装gcc：<code>yum install gcc-c++</code></li>
+<li>PCRE    PCRE(Perl Compatible Regular Expressions)是一个Perl库，包括 perl 兼容的正则表达式库。<br>nginx的http模块使用pcre来解析正则表达式，所以需要在linux上安装pcre库。<code>yum install -y pcre pcre-devel</code><br>注：pcre-devel是使用pcre开发的一个二次开发库。nginx也需要此库。</li>
+<li>zlib    zlib库提供了很多种压缩和解压缩的方式，nginx使用zlib对http包的内容进行gzip，<br>所以需要在linux上安装zlib库。<code>yum install -y zlib zlib-devel</code></li>
+<li>openssl    OpenSSL 是一个强大的安全套接字层密码库，囊括主要的密码算法、常用的密钥和证书封装管理功能及SSL协议，并提供丰富的应用程序供测试或其它目的使用。<br>  nginx不仅支持http协议，还支持https（即在ssl协议上传输http），所以需要在linux安装openssl库。<code>yum install -y openssl openssl-devel</code></li>
+</ul>
+</blockquote>
+<h4 id="编译安装将nginx-1-8-0-tar-gz拷贝至linux服务器。"><a href="#编译安装将nginx-1-8-0-tar-gz拷贝至linux服务器。" class="headerlink" title="编译安装将nginx-1.8.0.tar.gz拷贝至linux服务器。"></a>编译安装将nginx-1.8.0.tar.gz拷贝至linux服务器。</h4><p>解压：<figure class="highlight plain"><figcaption><span>-zxvf nginx-1.8.0.tar.gz cd nginx-1.8.0```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">##### 1. configure查询详细参数`./configure --help`</span><br><span class="line">参数设置如下：</span><br></pre></td></tr></table></figure></p>
+<p>./configure \<br>–prefix=/usr/local/nginx \<br>–pid-path=/var/run/nginx/nginx.pid \<br>–lock-path=/var/lock/nginx.lock \<br>–error-log-path=/var/log/nginx/error.log \<br>–http-log-path=/var/log/nginx/access.log \<br>–with-http_gzip_static_module \<br>–http-client-body-temp-path=/var/temp/nginx/client \<br>–http-proxy-temp-path=/var/temp/nginx/proxy \<br>–http-fastcgi-temp-path=/var/temp/nginx/fastcgi \<br>–http-uwsgi-temp-path=/var/temp/nginx/uwsgi \<br>–http-scgi-temp-path=/var/temp/nginx/scgi<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">&gt;注意：上边将临时文件目录指定为/var/temp/nginx，需要在/var下创建temp及nginx目录##### </span><br><span class="line"></span><br><span class="line">2. 编译安装```makemake  install</span><br></pre></td></tr></table></figure></p>
+<h5 id="3-启动nginx"><a href="#3-启动nginx" class="headerlink" title="3. 启动nginx"></a>3. 启动nginx<figure class="highlight plain"><figcaption><span>/usr/local/nginx/sbin/./nginx```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt;  注意：执行./nginx启动nginx，这里可以-c指定加载的nginx配置文件，如：`./nginx -c /usr/local/nginx/conf/nginx.conf`</span><br><span class="line">如果不指定-c，nginx在启动时默认加载conf/nginx.conf文件，此文件的地址也可以在编译安装nginx时指定</span><br><span class="line">./configure的参数（--conf-path= 指向配置文件（nginx.conf））</span><br><span class="line">##### 4. 停止nginx</span><br><span class="line"></span><br><span class="line">- 方式1，快速停止：```cd /usr/local/nginx/sbin./nginx -s stop```此方式相当于先查出nginx进程id再使用kill命令强制杀掉进程。</span><br><span class="line">- 方式2，完整停止(建议使用)：```cd /usr/local/nginx/sbin./nginx -s quit```此方式停止步骤是待nginx进程处理任务完毕进行停止。</span><br><span class="line"></span><br><span class="line">##### 5. 重启nginx</span><br><span class="line">- 方式1，先停止再启动（建议使用）：对nginx进行重启相当于先停止nginx再启动nginx，即先执行停止命令再执行启动命令。如下：```./nginx -s quit./nginx</span><br></pre></td></tr></table></figure></h5><ul>
+<li>方式2，重新加载配置文件：当nginx的配置文件nginx.conf修改后，要想让配置生效需要重启nginx，<br>使用-s reload不用先停止nginx再启动nginx即可将配置信息在nginx中生效，如下：<figure class="highlight plain"><figcaption><span>-s reload```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">##### 6. 安装测试</span><br><span class="line">- 查询nginx进程：`[root@acyou sbin]# ps -ef|grep nginx`</span><br><span class="line">- 访问：`http://192.168.1.116/`</span><br><span class="line"></span><br><span class="line">## Nginx的配置文件`/usr/local/nginx/conf/nginx.conf` </span><br><span class="line">一个server就是一个虚拟主机#### nginx 配置负载均衡关键点：</span><br><span class="line">**在upstream添加server，在server的location中添加proxy_pass。**</span><br><span class="line"> 1. 轮询      每个请求按时间顺序逐一分配到不同的应用服务器，如果应用服务器down掉，自动剔除，剩下的继续轮询。 </span><br><span class="line"> 2. 权重      通过配置权重，指定轮询几率，权重和访问比率成正比，用于应用服务器性能不均的情况。 </span><br><span class="line"> 3. ip_哈希算法      每个请求按访问ip的hash结果分配，这样每个访客固定访问一个应用服务器，可以解决session共享的问题。</span><br><span class="line"> ```    </span><br><span class="line"> upstream nginxserver &#123;        </span><br><span class="line"> server 192.168.1.116:8081 weight=3;        </span><br><span class="line"> server 192.168.1.116:8082 weight=1;    </span><br><span class="line"> &#125;    </span><br><span class="line"> server &#123;        </span><br><span class="line"> listen       80;        </span><br><span class="line"> server_name  localhost;        </span><br><span class="line"> location / &#123;            </span><br><span class="line"> proxy_pass   http://nginxserver;            </span><br><span class="line"> index  index.html index.htm;        </span><br><span class="line"> &#125;        </span><br><span class="line"> error_page   500 502 503 504  /50x.html;        </span><br><span class="line"> location = /50x.html &#123;            </span><br><span class="line"> root   html;        </span><br><span class="line"> &#125;    </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p> 示例：<br> <figure class="highlight plain"><figcaption><span>myServer &#123;    </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server 192.168.1.116:9090 down;   </span><br><span class="line">server 192.168.1.116:8080 weight=2;    </span><br><span class="line">server 192.168.1.116:6060;    </span><br><span class="line">server 192.168.1.116:7070 backup;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="nginx-配置反向代理"><a href="#nginx-配置反向代理" class="headerlink" title="nginx 配置反向代理"></a>nginx 配置反向代理</h4><p> <strong>正向代理代理客户端，反向代理代理服务器</strong></p>
+<h5 id="1-正向代理我们常说的代理也就是只正向代理，正向代理的过程，"><a href="#1-正向代理我们常说的代理也就是只正向代理，正向代理的过程，" class="headerlink" title="1. 正向代理我们常说的代理也就是只正向代理，正向代理的过程，"></a>1. 正向代理我们常说的代理也就是只正向代理，正向代理的过程，</h5><p> 它隐藏了真实的请求客户端，服务端不知道真实的客户端是谁，客户端请求的服务都被代理服务器代替来请求，某些科学上网工具扮演的就是典型的正向代理角色。<br> 用浏览器访问 <a href="http://www.google.com" target="_blank" rel="noopener">http://www.google.com</a> 时，被残忍的block，于是你可以在国外搭建一台代理服务器，让代理帮我去请求google.com，代理把请求返回的相应结构再返回给我。</p>
+<h5 id="2-反向代理用户和负载均衡设备直接通信，也意味着用户做服务器域名解析时，解析得到的IP其实是负载均衡的IP，而不是服务器的IP。"><a href="#2-反向代理用户和负载均衡设备直接通信，也意味着用户做服务器域名解析时，解析得到的IP其实是负载均衡的IP，而不是服务器的IP。" class="headerlink" title="2. 反向代理用户和负载均衡设备直接通信，也意味着用户做服务器域名解析时，解析得到的IP其实是负载均衡的IP，而不是服务器的IP。"></a>2. 反向代理用户和负载均衡设备直接通信，也意味着用户做服务器域名解析时，解析得到的IP其实是负载均衡的IP，而不是服务器的IP。</h5><p> 在计算机世界里，由于单个服务器的处理客户端（用户）请求能力有一个极限，当用户的接入请求蜂拥而入时，会造成服务器忙不过来的局面，<br> 可以使用多个服务器来共同分担成千上万的用户请求，这些服务器提供相同的服务，对于用户来说，根本感觉不到任何差别。<br> Linux nginx默认目录：<br> /usr/share/nginx/html<br> /usr/local/nginx/sbin/nginx</p>
+<h3 id="SpringBoot-项目运行"><a href="#SpringBoot-项目运行" class="headerlink" title="SpringBoot 项目运行"></a>SpringBoot 项目运行</h3><p> nohup java -jar ./iblog-data-0.0.1-SNAPSHOT.jar  &gt;./log.out 2&gt;&amp;1 &amp;</p>
+<h3 id="使用Nginx-常见错误"><a href="#使用Nginx-常见错误" class="headerlink" title="使用Nginx 常见错误"></a>使用Nginx 常见错误</h3><ul>
+<li>Nginx提示413 Request Entity Too Large错误解决</li>
+</ul>
+<p>在HTTP代码块中增加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">client_max_body_size    3m;      </span><br><span class="line">client_body_buffer_size  128k;      </span><br><span class="line">proxy_connect_timeout    600;      </span><br><span class="line">proxy_read_timeout      600;      </span><br><span class="line">proxy_send_timeout      6000;      </span><br><span class="line">proxy_buffer_size        16k;      </span><br><span class="line">proxy_buffers            4 64k;      </span><br><span class="line">proxy_busy_buffers_size 64k;      </span><br><span class="line">proxy_temp_file_write_size 64k;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>参考<a href="https://www.linuxidc.com/Linux/2015-03/115156.htm" target="_blank" rel="noopener">https://www.linuxidc.com/Linux/2015-03/115156.htm</a></p>
+<ul>
+<li>Nginx报504 gateway timeout错误的解决方法</li>
+</ul>
+</blockquote>
+<p>增加超时时间：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">proxy_connect_timeout 300s;</span><br><span class="line">proxy_send_timeout 300s;</span><br><span class="line">proxy_read_timeout 300s;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Linux安装Nginx"><a href="#Linux安装Nginx" class="headerlink" title="Linux安装Nginx"></a>Linux安装Nginx</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@acyou nginx]# wget http://nginx.org/download/nginx-1.12.2.tar.gz</span><br><span class="line">[root@acyou nginx]# tar -xvf nginx-1.12.2.tar.gz</span><br><span class="line">[root@acyou nginx]# cd nginx-1.12.2</span><br><span class="line">[root@acyou nginx]# ./configure</span><br><span class="line">[root@acyou nginx]# make</span><br><span class="line">[root@acyou nginx]# make install</span><br></pre></td></tr></table></figure>
+<p>安装完成：查看<code>/usr/local/nginx/</code></p>
+
+        </div>
+        <div class="post-reply">
+            
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTE4Ni81NzUz">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+            
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © You Fang 2020
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>

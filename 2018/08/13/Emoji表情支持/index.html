@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>MySQL支持Emoji表情 | 江心秋月</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MySQL支持mysql 保存emoji时报，数据库报错：Caused by: java.sql.SQLException: Incorrect string value: ‘\xF0\x9F\x98\x82\xF0\x9F…’ for column ‘review’ at row 1 我们可以看到错误提示中的字符0xF0 0x9F 0x98 0x84 ，这对应UTF-8编码格式中的4字节编码（U">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL支持Emoji表情">
+<meta property="og:url" content="http://yoursite.com/2018/08/13/Emoji表情支持/index.html">
+<meta property="og:site_name" content="江心秋月">
+<meta property="og:description" content="MySQL支持mysql 保存emoji时报，数据库报错：Caused by: java.sql.SQLException: Incorrect string value: ‘\xF0\x9F\x98\x82\xF0\x9F…’ for column ‘review’ at row 1 我们可以看到错误提示中的字符0xF0 0x9F 0x98 0x84 ，这对应UTF-8编码格式中的4字节编码（U">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:updated_time" content="2020-10-13T02:20:28.320Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL支持Emoji表情">
+<meta name="twitter:description" content="MySQL支持mysql 保存emoji时报，数据库报错：Caused by: java.sql.SQLException: Incorrect string value: ‘\xF0\x9F\x98\x82\xF0\x9F…’ for column ‘review’ at row 1 我们可以看到错误提示中的字符0xF0 0x9F 0x98 0x84 ，这对应UTF-8编码格式中的4字节编码（U">
+  
+    <link rel="alternate" href="/atom.xml" title="江心秋月" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">江心秋月</span>
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                推荐
+            </a>
+            
+            <a class="nav-item" href="/about">
+                关于
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                推荐
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                关于
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>MySQL支持Emoji表情</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="http://mvimg1.meitudata.com/5744548da272f9396.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> 江心秋月</span>
+                <span class="post-date sub-title">at: 2018-08-13</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/MySQL/">MySQL</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <h3 id="MySQL支持"><a href="#MySQL支持" class="headerlink" title="MySQL支持"></a>MySQL支持</h3><p>mysql 保存emoji时报，数据库报错：Caused by: java.sql.SQLException: Incorrect string value: ‘\xF0\x9F\x98\x82\xF0\x9F…’ for column ‘review’ at row 1</p>
+<p>我们可以看到错误提示中的字符0xF0 0x9F 0x98 0x84 ，这对应UTF-8编码格式中的4字节编码（UTF-8编码规范）。正常的汉字一般不会超过3个字节，为什么为出现4个字节呢？实际上是它对应的是智能手机输入法中的表情。那为什么会报错呢？因为mysql中的utf-8并不是真正意义上的utf-8，它只能存储1~3个字节长度的utf-8编码，如果想存储4个字节的必须用utf8mb4类型。不而要使用utf8mb4类型，首先要保证Mysql版本要不低于 MySQL 5.5.3。</p>
+<h4 id="使用utf8mb4"><a href="#使用utf8mb4" class="headerlink" title="使用utf8mb4"></a>使用utf8mb4</h4><ol>
+<li><p>使用utf8mb4数据类型<br>[client]<br>default-character-set = utf8mb4<br>[mysql]<br>default-character-set = utf8mb4<br>[mysqld]<br>character-set-server = utf8mb4<br>collation-server = utf8mb4_unicode_ci</p>
+</li>
+<li><p>将数据库中对应的字段，改为utf8mb4_general_ci</p>
+</li>
+</ol>
+<p>　　# 对每一个数据库:<br>　　ALTER DATABASE 这里数据库名字 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;<br>　　# 对每一个表:<br>　　ALTER TABLE 这里是表名字 CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;<br>　　# 对每一个字段:<br>　　ALTER TABLE 这里是表名字 CHANGE 字段名字 重复字段名字 VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;<br>　　# 上面一句或者使用modify来更改<br>　　ALTER TABLE 这里是表名字 modify 字段名字 VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT ‘’;<br>　　utf8mb4完全向后兼容utf8，无乱码或其他数据丢失的形式出现。理论上是可以放心修改… 还是修改数据库比较方便。</p>
+<h4 id="数据库连接"><a href="#数据库连接" class="headerlink" title="数据库连接"></a>数据库连接</h4><p>修改项目中的连接数据库的url，将characterEncoding=utf-8去掉，此步骤一定要进行<br>SpringBoot可以增加：<code>spring.datasource.hikari.connection-init-sql=set names utf8mb4</code></p>
+<h4 id="查看三种MySQL字符集的方法"><a href="#查看三种MySQL字符集的方法" class="headerlink" title="查看三种MySQL字符集的方法"></a>查看三种MySQL字符集的方法</h4><ol>
+<li>查看MySQL数据库服务器和数据库MySQL字符集。<br> mysql&gt; show variables like ‘%char%’;</li>
+<li>查看MySQL数据表（table）的MySQL字符集。<br> mysql&gt; show table status from sqlstudy_db like ‘%countries%’;</li>
+<li>查看MySQL数据列（column）的MySQL字符集。<br> mysql&gt; show full columns from countries;</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- 修改数据库</span><br><span class="line">ALTER DATABASE iblog_data CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;</span><br><span class="line">-- 修改表</span><br><span class="line">ALTER TABLE student CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</span><br><span class="line">-- 修改字段</span><br><span class="line">ALTER TABLE student CHANGE name VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</span><br><span class="line">-- 查看</span><br><span class="line">SHOW VARIABLES WHERE Variable_name LIKE &apos;character\_set\_%&apos; OR Variable_name LIKE &apos;collation%&apos;;</span><br></pre></td></tr></table></figure>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>Navicat等数据库连接工具不支持显示emoji，都是显示的?。这时候可以返回到浏览器中测试</p>
+
+        </div>
+        <div class="post-reply">
+            
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTE4Ni81NzUz">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+            
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © You Fang 2020
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>

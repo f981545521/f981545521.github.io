@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="full-height">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bulma/0.4.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  
+  <title>前端技术 | 江心秋月</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Ajax请求重定向1.后台设置123456789//判断是否是ajax请求    if(&amp;quot;XMLHttpRequest&amp;quot;.equals(request.getHeader(&amp;quot;X-Requested-With&amp;quot;)))&amp;#123;        response.setHeader(&amp;quot;REDIRECT&amp;quot;, &amp;quot;REDIRECT&amp;quo">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端技术">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/前端/index.html">
+<meta property="og:site_name" content="江心秋月">
+<meta property="og:description" content="Ajax请求重定向1.后台设置123456789//判断是否是ajax请求    if(&amp;quot;XMLHttpRequest&amp;quot;.equals(request.getHeader(&amp;quot;X-Requested-With&amp;quot;)))&amp;#123;        response.setHeader(&amp;quot;REDIRECT&amp;quot;, &amp;quot;REDIRECT&amp;quo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:updated_time" content="2020-10-13T02:20:28.320Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端技术">
+<meta name="twitter:description" content="Ajax请求重定向1.后台设置123456789//判断是否是ajax请求    if(&amp;quot;XMLHttpRequest&amp;quot;.equals(request.getHeader(&amp;quot;X-Requested-With&amp;quot;)))&amp;#123;        response.setHeader(&amp;quot;REDIRECT&amp;quot;, &amp;quot;REDIRECT&amp;quo">
+  
+    <link rel="alternate" href="/atom.xml" title="江心秋月" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/layout.css">
+  
+
+</head>
+</html>
+<body>
+  <header id="navbar" class="overflow-hidden">
+  <div class="container">
+    <nav class="nav">
+         <div class="nav-left">
+            <a href="/" class="nav-item" style="font-size: 20px;">
+              <span class="logo">江心秋月</span>
+            </a>
+         </div>
+        <div class="nav-center is-hidden position-relative" id="search_container">
+            <div class="nav-item full-width full-height">
+                <i class="fa fa-search has-padding" aria-hidden="true"></i>
+                <input type="text" id="search_input" class="search-input full-height full-width" placeholder="Search post" autofocus>
+                <i id="close_search" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="search_result"></div>
+        </div>
+        <div class="nav-right nav-menu">
+            <a class="nav-item" id="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
+            
+            <a class="nav-item" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item" href="/works">
+                推荐
+            </a>
+            
+            <a class="nav-item" href="/about">
+                关于
+            </a>
+            
+        </div>
+        <span class="nav-toggle" id="navMenuDropdown">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <div class="navbar-menu position-absolute full-width content-box is-hidden-desktop is-flex flex-column center" style="top: 100%;">
+            
+            <a class="nav-item flex-1" href="/">
+                主页
+            </a>
+            
+            <a class="nav-item flex-1" href="/works">
+                推荐
+            </a>
+            
+            <a class="nav-item flex-1" href="/about">
+                关于
+            </a>
+            
+        </div>
+    </nav>
+  </div>
+</header>
+
+  <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
+      <div class="main-inner-content">
+          <!--博文页面-->
+
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
+        background-size: cover;
+        background-color: lightsteelblue;
+    }
+
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
+    }
+
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+    }
+
+    .flow-chart {
+        text-align: center;
+    }
+
+    img[alt="post-cover"] {
+        display: none;
+    }
+</style>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>前端技术</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="http://mvimg1.meitudata.com/5744548da272f9396.jpg">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> 江心秋月</span>
+                <span class="post-date sub-title">at: 2018-08-14</span>
+            </div>
+            
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/前端/">前端</a>
+                    
+                </div>
+            
+        </div>
+        <div class="content" style="overflow: auto">
+            <h3 id="Ajax请求重定向"><a href="#Ajax请求重定向" class="headerlink" title="Ajax请求重定向"></a>Ajax请求重定向</h3><h4 id="1-后台设置"><a href="#1-后台设置" class="headerlink" title="1.后台设置"></a>1.后台设置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//判断是否是ajax请求</span><br><span class="line">    if(&quot;XMLHttpRequest&quot;.equals(request.getHeader(&quot;X-Requested-With&quot;)))&#123;</span><br><span class="line">        response.setHeader(&quot;REDIRECT&quot;, &quot;REDIRECT&quot;);//告诉ajax我是重定向</span><br><span class="line">        //告诉ajax我重定向的路径</span><br><span class="line">        response.setHeader(&quot;CONTENTPATH&quot;, RootConstant.LOGIN_PATH);</span><br><span class="line">        response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        response.sendRedirect(RootConstant.LOGIN_PATH);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-前台配置"><a href="#2-前台配置" class="headerlink" title="2.前台配置"></a>2.前台配置</h4><blockquote>
+<p>在公共的JS中配置一下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$.ajaxSetup( &#123;</span><br><span class="line">    //设置ajax请求结束后的执行动作</span><br><span class="line">    complete : function(XMLHttpRequest, textStatus) &#123;</span><br><span class="line">        // 通过XMLHttpRequest取得响应头，REDIRECT</span><br><span class="line">        var redirect = XMLHttpRequest.getResponseHeader(&quot;REDIRECT&quot;);//若HEADER中含有REDIRECT说明后端想重定向</span><br><span class="line">        if (redirect == &quot;REDIRECT&quot;) &#123;</span><br><span class="line">            var win = window;</span><br><span class="line">            while (win != win.top)&#123;</span><br><span class="line">                win = win.top;</span><br><span class="line">            &#125;</span><br><span class="line">            //将后端重定向的地址取出来,使用win.location.href去实现重定向的要求</span><br><span class="line">            win.location.href= XMLHttpRequest.getResponseHeader(&apos;CONTENTPATH&apos;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+
+        </div>
+        <div class="post-reply">
+            
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTE4Ni81NzUz">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+            
+            
+        </div>
+    </div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        Copyright © You Fang 2020
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/search_core.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>
